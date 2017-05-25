@@ -32,36 +32,11 @@ set cpo&vim
 call textobj#user#plugin('space', {
 \     '-': {
 \         '*sfile*': expand('<sfile>:p'),
-\         'select-a': 'aS', '*select-a-function*': 's:select_a',
-\         'select-i': 'iS', '*select-i-function*': 's:select_i',
+\         'select-a': 'aS', '*select-a-function*': 'textobjspace#select_a',
+\         'select-i': 'iS', '*select-i-function*': 'textobjspace#select_i',
 \     }
 \ })
 
-let s:pattern_a = '[[:blank:]　]\+'
-let s:pattern_i = ' \+'
-
-function! s:select_a()
-    return s:select(s:pattern_a)
-endfunction
-
-function! s:select_i()
-    return s:select(s:pattern_i)
-endfunction
-
-function! s:select(pattern)
-    if matchstr(getline('.'), '.', col('.') - 1) !~ a:pattern
-        call search(a:pattern)
-        if matchstr(getline('.'), '.', col('.') - 1) !~ a:pattern
-            return
-        endif
-    endif
-
-    call search(a:pattern, 'bc')
-    let start = getpos('.')
-    call search(a:pattern, 'ce')
-    let end = getpos('.')
-    return ['v', start, end]
-endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
