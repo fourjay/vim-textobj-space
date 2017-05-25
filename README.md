@@ -1,5 +1,9 @@
 vim-textobj-space
 =================
+This is a fork of textobj-space
+
+Original version was written as a direct plugin rather then an autoload.
+This creates a fairly significant load time at startup.
 
 Text objects for continuity space
 
